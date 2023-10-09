@@ -6,6 +6,7 @@ use App\Models\Anggota;
 use App\Models\Kunjungan;
 use App\Models\Tujuan;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -30,12 +31,18 @@ class Pengunjung extends Component
                 ->get();
 
         } else {
-            $this->latestAnggota = Kunjungan::with('anggota')
-                ->selectRaw('MAX(created_at) as latest_created_at, anggota_id')
+            // $this->latestAnggota = Kunjungan::with('anggota')
+            //     ->selectRaw('MAX(created_at) as latest_created_at, anggota_id')
+            //     ->groupBy('anggota_id')
+            //     ->latest('latest_created_at')
+            //     ->limit(4)
+            //     ->distinct()
+            //     ->get();
+
+            $this->latestAnggota = Kunjungan::with('anggota')->select('anggota_id', DB::raw('MAX(created_at) as latest_created_at'))
                 ->groupBy('anggota_id')
-                ->latest('latest_created_at')
+                ->orderBy('latest_created_at', 'desc')
                 ->limit(4)
-                ->distinct()
                 ->get();
 
         }
@@ -62,7 +69,7 @@ class Pengunjung extends Component
         Kunjungan::create([
             'anggota_id' => $this->idAnggota,
             'tanggal' => Carbon::now()->toDateString(),
-            'waktu' => Carbon::now()->toTimeString(),
+            'waktu' => Carbon::now('Asia/Jakarta')->toTimeString(),
             'tujuan' => $tujuan,
         ]);
         $this->selectedTujuan = 1;

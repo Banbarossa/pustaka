@@ -70,13 +70,22 @@
 
                     
                     <div class="mt-4">
-                        <h5>{{$search?'Hasil Pecarian':'Pengunjung Terbaru'}}</h5>
+                        <div class="d-flex gap-2 align-items-center">
+                            <h5 class="mr-3">{{$search?'Hasil Pecarian':'Pengunjung Terbaru'}}</h5>
+                            <div class="spinner-border spinner-border-sm text-primary" wire:loading wire:target='getAnggota' role="status">
+                                <span class="visually-hidden"></span>
+                            </div>
+                        </div>
                         @forelse ($latest as $item)
                             @if ($search)
-                                <button type="button" wire:click="getAnggota({{ $item->id }})" class="btn {{$idAnggota == $item->id ? 'btn-primary':'btn-outline-primary'}} rounded-pill me-3 mb-3">{{$item->name}}</button>
+                                <button type="button" wire:click="getAnggota({{ $item->id }})" class="btn {{$idAnggota == $item->id ? 'btn-primary':'btn-outline-primary'}} rounded-pill me-3 mb-3">
+                                    {{$item->name}}
+                                </button>
                             @else
                             @if ($item->anggota)
-                                <button type="button" wire:click="getAnggota({{ $item->anggota->id }})" class="btn {{$idAnggota == $item->anggota->id ? 'btn-primary':'btn-outline-primary'}} rounded-pill mr-3 mb-3">{{$item->anggota->name}}</button>
+                                <button type="button" wire:click="getAnggota({{ $item->anggota->id }})" class="btn {{$idAnggota == $item->anggota->id ? 'btn-primary':'btn-outline-primary'}} rounded-pill mr-3 mb-3">
+                                    {{$item->anggota->name}}
+                                </button>
                                 
                             @endif
                             @endif
@@ -85,9 +94,16 @@
                             <h6 class="text-warning">😒 Tidak ditemukan!</h6>
                         @endforelse
                     </div>
+                    
 
                     <div class="mt-4">
-                        <h5>Tujuan</h5>
+                        <div class="d-flex gap-2 align-items-center">
+                            <h5 class="mr-3">Tujuan</h5>
+                            <div class="spinner-border spinner-border-sm text-primary" wire:loading wire:target='test' role="status">
+                                <span class="visually-hidden"></span>
+                            </div>
+
+                        </div>
                             @foreach ($tujuan as $item)
                             <button type="button" wire:click="test({{$item->id}})" class="btn {{$selectedTujuan == $item->id ? 'btn-primary':'btn-outline-primary'}} rounded-pill mr-3 mb-3">{{$item->tujuan}}</button>
                                 
@@ -102,7 +118,12 @@
                         <div class="mt-4">
                             <div class="d-grid">
 
-                                <button type="button" class="btn btn-block btn-success rounded-pill" wire:click='store'>Submit</button>
+                                <button type="button" class="btn btn-block btn-success rounded-pill" wire:click='store'>
+                                    <div class="spinner-border spinner-border-sm text-white mr-3" wire:loading wire:target='store' role="status">
+                                        <span class="visually-hidden"></span>
+                                    </div>
+                                    Submit
+                                </button>
                             </div>
                         </div>
                     @endif
