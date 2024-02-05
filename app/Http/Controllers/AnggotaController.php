@@ -139,7 +139,9 @@ class AnggotaController extends Controller
     {
 
         $data['model'] = Anggota::findOrFail($id);
+
         $pdf = Pdf::loadView('anggota.card', $data);
+        $pdf->setPaper('a4');
         return $pdf->stream();
 
         // return view('anggota.card', compact('data'));

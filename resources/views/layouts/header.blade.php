@@ -20,11 +20,23 @@
                 <ul class="list-inline float-right mb-0">
                     
                     <li class="list-inline-item dropdown notification-list">
-                        <a class="nav-link  arrow-none waves-effect nav-user" href="https://pis.sch.id" role="button"
-                           aria-haspopup="false" aria-expanded="false" target="blank">
-                           <span class="fw-bold  mr-2">Perpustakaan</span>
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
                             <img src="{{asset('assets/images/logo-pavicon.png')}}" alt="user" class="rounded-circle">
                         </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5>Welcome</h5>
+                            </div>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <form action="{{route('logout')}}" method="post">
+                            @csrf
+                                <button class="dropdown-item"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</button>
+                            </form>
+                            {{-- <a class="dropdown-item" href="#"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a> --}}
+                        </div>
                     </li>
 
 
